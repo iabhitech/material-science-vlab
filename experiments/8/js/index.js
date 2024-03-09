@@ -1,19 +1,13 @@
 const charts = {};
-const DATA_UPDATE_ANIMATION_DELAY = 600;
+const DATA_UPDATE_ANIMATION_DELAY = 400;
 // in seconds
-const time = [
-  0, 
-];
+const time = [0];
 
 // in nm
-const penetrationDepth = [
-  49, 
-];
+const penetrationDepth = [49];
 
 // in mN
-const force = [
-  7, 
-];
+const force = [7];
 
 var currPos = 0;
 var currentStepProgress = 1;
@@ -33,7 +27,7 @@ function handle() {
 function handleStep1() {
   let pane = document.getElementById("step1");
 
-  if (!mit1.isActive() && !mit2.isActive() && !mit3.isActive() ) {
+  if (!mit1.isActive() && !mit2.isActive() && !mit3.isActive()) {
     alert("Please select a machine first!");
     return;
   }
@@ -51,7 +45,7 @@ function handleStep1() {
 function handleStep2() {
   let pane = document.getElementById("step2");
 
-  if (!mit1.isSampleLoaded() && !mit2.isSampleLoaded() && !mit3.isSampleLoaded()  ) {
+  if (!mit1.isSampleLoaded() && !mit2.isSampleLoaded() && !mit3.isSampleLoaded()) {
     alert("Please load the sample in the machine first!");
     return;
   }
@@ -59,19 +53,7 @@ function handleStep2() {
   pane.classList.add("done");
   pane.classList.remove("active");
 
- 
 
-  pane.classList.add("done");
-  pane.classList.remove("active");
-
-  let next = document.getElementById("step3");
-  next.classList.add("active");
-  next.classList.remove("disabled");
-
-  currentStepProgress = 3;
-}
-function handleStep3() {
-  let pane = document.getElementById("step3");
   //if (utm) utm.destory();
   // if (vickers) vickers.init();
   // if (sample1) sample1.init();
@@ -85,107 +67,100 @@ function handleStep3() {
   //   return;
   // }
 
-  let images= [{}];
+  let images = [{}];
 
-    if(mit1.isActive()){
-      if(CURRENT_SAMPLE=== "brass"){
-   
-        images = [   
-          { time: " Time - 0h", url: "images/results/Brass_Vickers_25 gf_1.jpg" },
-          { time: "Time - 0.5h", url: "images/results/Brass_Vickers_50 gf_1.jpg" },
-        
-          // Add more images as needed
-        ];
-      }
-      else if(CURRENT_SAMPLE== "steel"){
-         images = [   
-          { time: "Time - 1h", url: "images/results/MS_Vickers_100 gf_1.jpg" },
-          { time: "Time - 1h", url: "images/results/MS_Vickers_50 gf_1.jpg" },
-          // Add more images as needed
-        ];
-      }
-      else{
-        images = [   
-          { time: " Time - 0h", url: "images/results/Al_Vickers_500 gf_2 (7).jpg" },
-          { time: "Time - 0.5h", url: "images/results/Al_Vickers_500 gf_1(40).jpg" },
-          { time: "Time - 1h", url: "images/results/Al_Vickers_500 gf_3(24).jpg" },
-          // Add more images as needed
-        ];
-      }
-    
-    }
-    if(mit2.isActive()){ 
-         images = [   
-          { time: "Time - 1h", url: "images/results/MS_Brinell_250 kgf_1.jpg" },
-          { time: "Time - 1h", url: "images/results/MS_Brinell_250 kgf_2.jpg" },
-          // Add more images as needed
-        ];
-    }
-     
-    //   if(CURRENT_SAMPLE== "ste")
-    // }
+  if (mit1.isActive()) {
+    if (CURRENT_SAMPLE === "brass") {
+      images = [
+        { time: " Time - 0h", url: "images/results/Brass_Vickers_25 gf_1.jpg" },
+        { time: "Time - 0.5h", url: "images/results/Brass_Vickers_50 gf_1.jpg" },
 
-
-  // Find the table element where the images will be displayed
-  let imageTable = document.getElementById("imageTable");
-  let startTest= document.getElementById("startTest");
-
- // Define the event listener for the "Start Test" button
-startTest.addEventListener("click", (e) => {
-  e.currentTarget.disabled = true;
-  document.getElementById("btnNext").disabled = true;
-  e.currentTarget.innerHTML = "Running...";
-
-  // Call the function to display images with delay
-  displayImagesWithDelay(images);
-  e.currentTarget.innerHTML = "Done";
-});
-
-// Function to display images with delay
-function displayImagesWithDelay(images) {
-  // Find the table element where the images will be displayed
-  let imageTable = document.getElementById("imageTable");
-
-  // Variable to track the index of the current image
-  let currentIndex = 0;
-
-  // Function to display the next image
-  function displayNextImage() {
-    if (currentIndex < images.length) {
-      let image = images[currentIndex];
-      let row = imageTable.insertRow(); // Create a new row
-
-      // Create cells for time and image
-      let timeCell = row.insertCell(0);
-      let imageCell = row.insertCell(1);
-
-      // Set the time in the first column
-      timeCell.innerHTML = image.time;
-
-      // Create an image element and set its attributes
-      let img = document.createElement("img");
-      img.src = image.url;
-      img.width = 200; // Set image width (adjust as needed)
-      img.height = 150; // Set image height (adjust as needed)
-
-      // Append the image to the second column
-      imageCell.appendChild(img);
-
-      // Increment the index for the next image
-      currentIndex++;
-
-      // Schedule to display the next image after a delay
-      setTimeout(displayNextImage, 5000); // Change the delay time as needed (currently 5 seconds)
+        // Add more images as needed
+      ];
+    } else if (CURRENT_SAMPLE == "steel") {
+      images = [
+        { time: "Time - 1h", url: "images/results/MS_Vickers_100 gf_1.jpg" },
+        { time: "Time - 1h", url: "images/results/MS_Vickers_50 gf_1.jpg" },
+        // Add more images as needed
+      ];
+    } else {
+      images = [
+        { time: " Time - 0h", url: "images/results/Al_Vickers_500 gf_2 (7).jpg" },
+        { time: "Time - 0.5h", url: "images/results/Al_Vickers_500 gf_1(40).jpg" },
+        { time: "Time - 1h", url: "images/results/Al_Vickers_500 gf_3(24).jpg" },
+        // Add more images as needed
+      ];
     }
   }
+  if (mit2.isActive()) {
+    images = [
+      { time: "Time - 1h", url: "images/results/MS_Brinell_250 kgf_1.jpg" },
+      { time: "Time - 1h", url: "images/results/MS_Brinell_250 kgf_2.jpg" },
+      // Add more images as needed
+    ];
+  }
 
-  // Start displaying images
-  displayNextImage();
-}
+  //   if(CURRENT_SAMPLE== "ste")
+  // }
 
-  
+  // Find the table element where the images will be displayed
+  let imageTable = document.getElementById("imageTable");
+  let startTest = document.getElementById("startTest");
+
+  // Define the event listener for the "Start Test" button
+  startTest.addEventListener("click", (e) => {
+    e.currentTarget.disabled = true;
+    document.getElementById("btnNext").disabled = true;
+    e.currentTarget.innerHTML = "Running...";
+
+    // Call the function to display images with delay
+    displayImagesWithDelay(images);
+    e.currentTarget.innerHTML = "Done";
+  });
+
+  // Function to display images with delay
+  function displayImagesWithDelay(images) {
+    // Find the table element where the images will be displayed
+    let imageTable = document.getElementById("imageTable");
+
+    // Variable to track the index of the current image
+    let currentIndex = 0;
+
+    // Function to display the next image
+    function displayNextImage() {
+      if (currentIndex < images.length) {
+        let image = images[currentIndex];
+        let row = imageTable.insertRow(); // Create a new row
+
+        // Create cells for time and image
+        let timeCell = row.insertCell(0);
+        let imageCell = row.insertCell(1);
+
+        // Set the time in the first column
+        timeCell.innerHTML = image.time;
+
+        // Create an image element and set its attributes
+        let img = document.createElement("img");
+        img.src = image.url;
+        img.width = 200; // Set image width (adjust as needed)
+        img.height = 150; // Set image height (adjust as needed)
+
+        // Append the image to the second column
+        imageCell.appendChild(img);
+
+        // Increment the index for the next image
+        currentIndex++;
+
+        // Schedule to display the next image after a delay
+        setTimeout(displayNextImage, 5000); // Change the delay time as needed (currently 5 seconds)
+      }
+    }
+
+    // Start displaying images
+    displayNextImage();
+  }
+
   // Call the function to display images with delay
-
 
   //plot blank graph init graphs
   // plotGraph(
@@ -221,28 +196,26 @@ function displayImagesWithDelay(images) {
         document.getElementById("btnNext").disabled = false;
         return;
       }
-      let Sn= [];
-      let sample_d= [];
-      let d1= [];
-      let d2= [];
-      let HV= [];
-      let Load= [];
-      let average= [];
-      
+      let Sn = [];
+      let sample_d = [];
+      let d1 = [];
+      let d2 = [];
+      let HV = [];
+      let Load = [];
+      let average = [];
+
       if (mit1.isActive()) {
-          if (CURRENT_SAMPLE === "aluminium") {
-              Sn= [1,2,3];
-              sample_d= ["Al_Vickers_500 gf_1(40)", "Al_Vickers_500 gf_2 (7)", "Al_Vickers_500 gf_3(24)"]
-              d1 = [74.92, 77.58, 73.93];
-              d2 = [74.01, 75.65, 75.26];
-              Load = [0.500, 0.500, 0.500];
-              HV = [167.22, 157.96, 166.62];
-              average = [74.46, 76.61, 74.60];
-      
-             
-      
-              for (let i = 0; i < d1.length; i++) {
-                  tableBody.innerHTML += `
+        if (CURRENT_SAMPLE === "aluminium") {
+          Sn = [1, 2, 3];
+          sample_d = ["Al_Vickers_500 gf_1(40)", "Al_Vickers_500 gf_2 (7)", "Al_Vickers_500 gf_3(24)"];
+          d1 = [74.92, 77.58, 73.93];
+          d2 = [74.01, 75.65, 75.26];
+          Load = [0.5, 0.5, 0.5];
+          HV = [167.22, 157.96, 166.62];
+          average = [74.46, 76.61, 74.6];
+
+          for (let i = 0; i < d1.length; i++) {
+            tableBody.innerHTML += `
                       <tr>
                           <td>${Sn[i]}</td>
                           <td>${sample_d[i]}</td>
@@ -253,21 +226,18 @@ function displayImagesWithDelay(images) {
                           <td>${HV[i]}</td>
                       </tr>
                   `;
-              }
           }
-         else if (CURRENT_SAMPLE === "brass") {
-            Sn= [1,2];
-            sample_d= ["Brass_Vickers_25 gf_1", "Brass_Vickers_50 gf_1"]
-            d1 = [16.47, 17.75];
-            d2 = [21.09, 23.84];
-            Load = [0.025, 0.050];
-            HV = [131.44, 214.44];
-            average = [18.78, 20.79];
-    
-           
-    
-            for (let i = 0; i < d1.length; i++) {
-                tableBody.innerHTML += `
+        } else if (CURRENT_SAMPLE === "brass") {
+          Sn = [1, 2];
+          sample_d = ["Brass_Vickers_25 gf_1", "Brass_Vickers_50 gf_1"];
+          d1 = [16.47, 17.75];
+          d2 = [21.09, 23.84];
+          Load = [0.025, 0.05];
+          HV = [131.44, 214.44];
+          average = [18.78, 20.79];
+
+          for (let i = 0; i < d1.length; i++) {
+            tableBody.innerHTML += `
                     <tr>
                         <td>${Sn[i]}</td>
                         <td>${sample_d[i]}</td>
@@ -278,21 +248,18 @@ function displayImagesWithDelay(images) {
                         <td>${HV[i]}</td>
                     </tr>
                 `;
-            }
-        }
-        else {
-          Sn= [1,2];
-          sample_d= ["MS_Vickers_100 gf_1", "MS_Vickers_50 gf_1"]
+          }
+        } else {
+          Sn = [1, 2];
+          sample_d = ["MS_Vickers_100 gf_1", "MS_Vickers_50 gf_1"];
           d1 = [23.44, 16.51];
           d2 = [31.04, 20.71];
-          Load = [0.100, 0.050];
+          Load = [0.1, 0.05];
           HV = [249.84, 267.76];
           average = [27.24, 18.61];
-  
-         
-  
+
           for (let i = 0; i < d1.length; i++) {
-              tableBody.innerHTML += `
+            tableBody.innerHTML += `
                   <tr>
                       <td>${Sn[i]}</td>
                       <td>${sample_d[i]}</td>
@@ -304,26 +271,24 @@ function displayImagesWithDelay(images) {
                   </tr>
               `;
           }
-      }
-      }
-      if (mit2.isActive()) {  
-        const dataTable = document.querySelector('.dataTable table thead tr td:nth-child(7)');
-        if (dataTable) {
-            dataTable.textContent = "HBN"; // Update the text content with your desired value
         }
-        
-        Sn= [1,2];
-        sample_d= ["MS_Brinell_250 kgf_1", "MS_Brinell_250 kgf_2"]
-        d1 = [1089.31, 1082.00];
-        d2 = [1080.12, 1078.00];
-        Load = [250.00, 250.00];
-        HV = [269.87, 272.24];
-        average = [1084.72, 1080.00];
+      }
+      if (mit2.isActive()) {
+        const dataTable = document.querySelector(".dataTable table thead tr td:nth-child(7)");
+        if (dataTable) {
+          dataTable.textContent = "HBN"; // Update the text content with your desired value
+        }
 
-       
+        Sn = [1, 2];
+        sample_d = ["MS_Brinell_250 kgf_1", "MS_Brinell_250 kgf_2"];
+        d1 = [1089.31, 1082.0];
+        d2 = [1080.12, 1078.0];
+        Load = [250.0, 250.0];
+        HV = [269.87, 272.24];
+        average = [1084.72, 1080.0];
 
         for (let i = 0; i < d1.length; i++) {
-            tableBody.innerHTML += `
+          tableBody.innerHTML += `
                 <tr>
                     <td>${Sn[i]}</td>
                     <td>${sample_d[i]}</td>
@@ -334,10 +299,9 @@ function displayImagesWithDelay(images) {
                     <td>${HV[i]}</td>
                 </tr>
             `;
-        
-    }
-    }
-      
+        }
+      }
+
       currPos++;
 
       //let progress1 = (penetrationDepth.length / totalSteps) * currPos;
@@ -368,38 +332,31 @@ function displayImagesWithDelay(images) {
     }, DATA_UPDATE_ANIMATION_DELAY);
   });
 
+  let next = document.getElementById("step3");
+  next.classList.add("active");
+  next.classList.remove("disabled");
+
+  currentStepProgress = 3;
+}
+
+function handleStep3() {
+  let pane = document.getElementById("step3");
+
   pane.classList.add("done");
   pane.classList.remove("active");
+
   let next = document.getElementById("step4");
   next.classList.add("active");
   next.classList.remove("disabled");
+
   currentStepProgress = 4;
- 
 }
+
 function handleStep4() {
   let pane = document.getElementById("step4");
 
   pane.classList.add("done");
   pane.classList.remove("active");
-
-  let next = document.getElementById("step5");
-  next.classList.add("active");
-  next.classList.remove("disabled");
-
-  currentStepProgress = 5;
-}
-
-function handleStep5() {
-  // let pane = document.getElementById("step5");
-
-  // pane.classList.add("done");
-  // pane.classList.remove("active");
-
-  let next = document.getElementById("step6");
-  next.classList.add("active");
-  next.classList.remove("disabled");
-
-  currentStepProgress = 6;
 
   modal = new Modal({
     title: "Can you answer the questions?",
@@ -488,13 +445,13 @@ function handleStep5() {
         correct: 0,
       },
     ],
-    onClose: handleStep6,
+    onClose: handleStep5,
   });
   modal.show();
 }
 
-function handleStep6() {
-  let pane = document.getElementById("step6");
+function handleStep5() {
+  let pane = document.getElementById("step5");
 
   pane.classList.add("done");
   pane.classList.remove("active");

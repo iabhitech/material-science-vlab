@@ -100,7 +100,7 @@ function MIT(canvas, ctx) {
     flashArrow = !flashArrow;
     if (!sampleLoaded && flashArrow) {
       let _y = y + 200;
-      let _x = x + 100;
+      let _x = x + 60;
       ctx.fillText("Drag sample here", _x, _y + 15);
       ctx.drawImage(arrow, _x + 100, _y, arrow.width / 2, arrow.height / 2);
     }
@@ -127,7 +127,7 @@ function MIT(canvas, ctx) {
       } else if (CURRENT_SAMPLE == "steel") {
         currentSample = sample3Img;
       }
-      let x = (xOffset + 304) * scale;
+      let x = (xOffset + 238) * scale;
       let y = (yOffset + 281) * scale;
       ctx.drawImage(currentSample, x, y, (currentSample.width * scale) / 6, (currentSample.height * scale) / 6);
     }
