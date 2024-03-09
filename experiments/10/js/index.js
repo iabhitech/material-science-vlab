@@ -165,6 +165,17 @@ function handleStep3() {
   next.classList.remove("disabled");
 
   currentStepProgress = 4;
+}
+
+function handleStep4() {
+  let pane = document.getElementById("step4");
+
+  pane.classList.add("done");
+  pane.classList.remove("active");
+
+  let next = document.getElementById("step5");
+  next.classList.add("active");
+  next.classList.remove("disabled");
 
   modal = new Modal({
     title: "Can you answer the questions?",
@@ -183,20 +194,9 @@ function handleStep3() {
         correct: 2,
       },
     ],
-    onClose: handleStep4,
+    onClose: handleStep5,
   });
   modal.show();
-}
-
-function handleStep4() {
-  let pane = document.getElementById("step4");
-
-  pane.classList.add("done");
-  pane.classList.remove("active");
-
-  let next = document.getElementById("step5");
-  next.classList.add("active");
-  next.classList.remove("disabled");
 
   currentStepProgress = 5;
 }
@@ -207,13 +207,10 @@ function handleStep5() {
   pane.classList.add("done");
   pane.classList.remove("active");
 
-  // let next = document.getElementById("step6");
-  // next.classList.add("active");
-  // next.classList.remove("disabled");
-
   document.getElementById("btnNext").disabled = true;
   document.getElementById("btnNext").innerText = "Done";
-  // currentStepProgress = 6;
+
+  currentStepProgress = 5;
 }
 
 function plotGraph(graphCtx, data, labelX, labelY) {
