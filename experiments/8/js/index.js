@@ -26,7 +26,18 @@ function handle() {
 
 function handleStep1() {
   let pane = document.getElementById("step1");
-
+  if(mit2.isActive()){
+  document.getElementById("sample0").style.visibility=  "hidden";
+  document.getElementById("sample1").style.visibility=  "hidden";
+  document.getElementById("text0").style.visibility=  "hidden";
+  document.getElementById("text1").style.visibility=  "hidden";
+  }
+  else{
+    document.getElementById("sample0").style.visibility=  "visible";
+    document.getElementById("sample1").style.visibility=  "visible";
+    document.getElementById("text0").style.visibility=  "visible";
+    document.getElementById("text1").style.visibility=  "visible";
+  }
   if (!mit1.isActive() && !mit2.isActive() && !mit3.isActive()) {
     alert("Please select a machine first!");
     return;
@@ -280,7 +291,7 @@ function handleStep2() {
         }
       }
       if (mit2.isActive()) {
-        document.getElementById("sample_name").innerHTML= "Perform d1 & d2 measurement from indent impressions of Al alloy";
+        document.getElementById("sample_name").innerHTML= "Perform d1 & d2 measurement from indent impressions of MS alloy";
         const dataTable = document.querySelector(".dataTable table thead tr td:nth-child(7)");
         if (dataTable) {
           dataTable.textContent = "HBN"; // Update the text content with your desired value
@@ -484,6 +495,10 @@ first_box.classList.remove("disabled");
 if (mit1.isActive()){
   mit1.destroy();
  mit1.unLoadSample();
+}
+if (mit2.isActive()){
+  mit2.destroy();
+ mit2.unLoadSample();
 }
 }
 function plotGraph(graphCtx, data, labelX, labelY) {
