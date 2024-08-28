@@ -1,5 +1,5 @@
 const charts = {};
-const DATA_UPDATE_ANIMATION_DELAY = 400;
+const DATA_UPDATE_ANIMATION_DELAY = 200;
 
 const indentationDepth = [
     0.00801, 0.00896, 0.01141, 0.01149, 0.0135, 0.01438, 0.01921, 0.02576, 0.03424, 0.04563,
@@ -13,7 +13,7 @@ const indentationDepth = [
     0.79203, 0.79102, 0.78955, 0.78882, 0.78738, 0.7859, 0.78418, 0.78268, 0.78045, 0.77856,
     0.77733, 0.77622, 0.77432, 0.77178, 0.77086, 0.76881, 0.76681, 0.7652, 0.76287, 0.76073,
     0.75788, 0.75538, 0.75299, 0.751, 0.74744, 0.74589, 0.74199, 0.73947, 0.73615, 0.7343,
-    0.73331, 0.73226, 0.73091, 0.72893, 0.72718, 0.72449, 0.72099, 0.71191, 0.70118
+    0.73331, 0.73091, 0.72893, 0.72449, 0.72099, 0.70118
   ]
   const load=  [
     0.04149, 0.05166, 0.06297, 0.07145, 0.083, 0.0925, 0.12345, 0.18484, 0.28471, 0.4232,
@@ -27,8 +27,8 @@ const indentationDepth = [
     38.00087, 37.00027, 36.00115, 35.00011, 33.99929, 32.99975, 31.99975, 30.99936, 29.99901,
     28.99949, 27.99924, 26.99946, 25.99962, 24.99987, 23.99931, 22.99931, 21.99894, 20.9994,
     19.9991, 18.999, 17.99873, 16.99862, 15.99853, 14.99894, 13.99882, 12.99796, 11.99865,
-    10.99967, 9.99838, 8.99858, 7.99823, 6.99897, 5.99845, 4.99839, 4.53742, 4.03853, 3.54005,
-    3.05465, 2.55683, 2.05912, 1.56459, 1.07648, 0.59335, 0.09478
+    10.99967, 9.99838, 8.99858, 7.99823, 6.99897, 5.99845, 4.99839, 4.53742, 4.03853,
+    3.05465, 2.55683, 1.56459, 1.07648, 0.09478
   ]
 
 
@@ -80,16 +80,17 @@ function handleStep2() {
       labels: indentationDepth,
       datasets: [
         {
+          label: 'Load',
           data: [],
           borderColor: "#3e95cd",
           fill: false,
-          pointRadius: 0,
-          pointHoverRadius: 2,
+          pointRadius: 2,
+          pointHoverRadius: 4,
         },
       ],
     },
     "Indentation Depth (µm)",
-        "Load (mN)"
+    "Load (mN)"
   );
 
   document.getElementById("btnNext").disabled = true;
@@ -138,10 +139,11 @@ function handleStep2() {
           datasets: [
             {
               data: load.slice(0, progress1),
+              label: 'Load',
               borderColor: "#3e95cd",
               fill: false,
-              pointRadius: 0,
-              pointHoverRadius: 2,
+              pointRadius: 2,
+              pointHoverRadius: 4,
             },
           ],
         },
@@ -354,6 +356,7 @@ function plotGraph(graphCtx, data, labelX, labelY) {
             fill: false,
             pointRadius: 3,
             pointHoverRadius: 5,
+            yAxisID: 'yScale'
           }
         ]
       },
@@ -361,31 +364,17 @@ function plotGraph(graphCtx, data, labelX, labelY) {
         responsive: true,
         animation: false,
         scales: {
-          x: {
-            display: true,
-            title: {
-              display: true,
-              text: labelX // X-axis label
-            },
-            ticks: {
-              beginAtZero: true,
-              callback: function(value) {
-                return parseFloat(value).toFixed(2);
-              }
-            }
+          yScale: {
+            id: 'yScale',
+            type: 'linear',
+            min: 0,
+            max: 60,
           },
-          y: {
-            display: true,
-            title: {
-              display: true,
-              text: labelY // Y-axis label
-            },
-            ticks: {
-              beginAtZero: true,
-              callback: function(value) {
-                return parseFloat(value).toFixed(0);
-              }
-            }
+          xScale: {
+            id: 'xScale',
+            type: 'linear',
+            min: 0,
+            max: 1,
           }
         },
         plugins: {
@@ -397,58 +386,3 @@ function plotGraph(graphCtx, data, labelX, labelY) {
     });
   }
 }
-// function plotStressVsStrainGraph(ctx) {
-//   new Chart(ctx, {
-//       type: 'scatter',
-//       data: {
-//           labels: strain.map((_, index) => index + 1), // X-axis labels (just indices here)
-//           datasets: [{
-//               label: 'Stress vs Strain',
-//               data: strain.map((s, i) => ({ x: s, y: stress[i] })),
-//               backgroundColor: 'rgba(75, 192, 192, 0.2)',
-//               borderColor: 'rgba(75, 192, 192, 1)',
-//               borderWidth: 1,
-//               pointRadius: 3,
-//           }]
-//       },
-//       options: {
-//           scales: {
-//               x: {
-//                   type: 'linear',
-//                   position: 'bottom',
-//                   title: {
-//                       display: true,
-//                       text: 'Strain'
-//                   },
-//                   ticks: {
-//                       beginAtZero: true,
-//                       // Add additional configuration if needed
-//                   }
-//               },
-//               y: {
-//                   title: {
-//                       display: true,
-//                       text: 'Stress'
-//                   },
-//                   ticks: {
-//                       beginAtZero: true,
-//                       // Add additional configuration if needed
-//                   }
-//               }
-//           },
-//           responsive: true,
-//           plugins: {
-//               legend: {
-//                   display: true
-//               },
-//               tooltip: {
-//                   callbacks: {
-//                       label: function(tooltipItem) {
-//                           return `Strain: ${tooltipItem.raw.x}, Stress: ${tooltipItem.raw.y}`;
-//                       }
-//                   }
-//               }
-//           }
-//       }
-//   });
-// }
